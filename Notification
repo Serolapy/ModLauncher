@@ -1,0 +1,60 @@
+function newNotification(title, text, site, icon, dir){
+	
+	/*
+		объект с параметрами для уведомления ==> "options"
+	*/
+	var a = {}
+	//тело уведомления
+	if(text!='undefined'&&text!=''){
+		a.body = text;
+	} else{
+		a.body = '';
+	}
+	//иконка
+	if(icon!='undefined'&&icon!=''){
+		a.icon = icon;
+	} else{
+		a.icon = 'https://catwar.su/favicon.ico';
+	}
+	//направление текста
+	if(dir!='undefined'&&dir!=''){
+		a.dir = dir;
+	} else{
+		a.dir = 'auto';
+	}
+	
+	
+	//проверка браузера
+	if (!Notification) {
+		alert('Ваш браузер не поддерживает уведомления.');
+	}
+	//если права есть
+		else if (Notification.permission == "granted") {
+			var notification = new Notification(title, a);
+
+			function clickFunc() {
+				if(site!=''&&site!='undefined'){
+					window.open(site);
+					notification.close();
+				}
+			}
+			notification.onclick = clickFunc;
+		}
+	//получаем права
+		else if (Notification.permission != 'denied') {
+			Notification.requestPermission(function (permission) {
+				// Если права успешно получены, отправляем уведомление
+				if (permission == "granted") {
+				newNotification();
+				} else {
+					alert('Вы запретили показывать уведомления. Включить показ всегда можно в настройках мода.');
+	}});} else {
+	//отклонено
+}}
+
+function newNotificationML(text, siteCH, site){
+	if(!siteCH){
+		site = '';
+	}
+	newNotification('Mod Launcher | CatWar',text,site,'https://avatars0.githubusercontent.com/u/65182656','')
+}

@@ -1,0 +1,54 @@
+<style>
+	#console{
+		background-color:#696969;
+		color:#FFF;
+		width:700px;
+		height:400px;
+		position:fixed;
+		bottom:0;
+		right:0;
+		margin: 10px;
+		border: solid black 10px;
+		border-radius: 10px;
+	}
+	#console input[type="text"]{
+		resize:none;
+		margin:5px;
+		border:solid 1px black;
+		width:80%;
+		height:2em;
+		font-size:1em;
+	}
+	#command input[type="button"]{
+		width:5%;
+		background:none;
+		color:white;
+		height:2em;
+		font-size:1em;
+		margin:2.5px;
+		border:none;
+		display:inline;
+		padding:0;
+	}
+	#command{
+		background-color:black;
+		position:absolute;
+		bottom:0;
+		margin:0;
+		display:block;
+		width:100%
+	}
+</style>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<div id="console">
+	<div id="MainMenu" class="console">
+	<!--Главное меню-->
+	</div>
+	<span class="material-icons">pause android</span>
+ dcddcdccd
+	<div id="command">
+		<input type="text"><input type="button" value=">"><input type="button" value="⚙">
+		<div id="scriptML"></div>
+	</div>
+</div>
