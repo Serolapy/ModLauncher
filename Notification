@@ -24,14 +24,15 @@ function newNotification(title, text, site, icon, dir){
 	}
 	
 	
-	//проверка браузера
-	if (!Notification) {
-		alert('Ваш браузер не поддерживает уведомления.');
-	}
-	//если права есть
+	if(localStorage.setItem['MLNotifications']){
+		//проверка браузера
+		if (!Notification) {
+			alert('Ваш браузер не поддерживает уведомления.');
+		}
+		//если права есть
 		else if (Notification.permission == "granted") {
 			var notification = new Notification(title, a);
-
+	
 			function clickFunc() {
 				if(site!=''&&site!='undefined'){
 					window.open(site);
@@ -40,7 +41,7 @@ function newNotification(title, text, site, icon, dir){
 			}
 			notification.onclick = clickFunc;
 		}
-	//получаем права
+		//получаем права
 		else if (Notification.permission != 'denied') {
 			Notification.requestPermission(function (permission) {
 				// Если права успешно получены, отправляем уведомление
@@ -48,9 +49,10 @@ function newNotification(title, text, site, icon, dir){
 				newNotification();
 				} else {
 					alert('Вы запретили показывать уведомления. Включить показ всегда можно в настройках мода.');
-	}});} else {
-	//отклонено
-}}
+		}});} 
+		else {
+		//отклонено
+}}}
 
 function newNotificationML(text, siteCH, site){
 	if(!siteCH){
