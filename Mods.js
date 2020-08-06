@@ -10,11 +10,11 @@ function mod(check,author,link,site /*имя в Локал с, автор мод
 			siteCheck=true
 	}}
 	if(site.length==0 || siteCheck){
-		var checkMod = localStorage.setItem[check];
+		var checkMod = localStorage.getItem[check];
 		if(checkMod==null){
 			//дефолтные значения
-			checkMod = false;
-			localStorage.setItem[check] = false;
+			checkMod = true;
+			localStorage.setItem[check] = true;
 		}
 		this.name = check;
 		this.check = checkMod;
