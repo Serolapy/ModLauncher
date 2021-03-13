@@ -1,0 +1,97 @@
+<script>
+if(!("jQuery" in window)){let a = document.createElement('script');a.src='https://e.catwar.su/js/jquery.js';document.head.appendChild(a);}
+</script>
+<style>
+#TCstage2 table{
+border: 1px solid black;    
+border-collapse: collapse;
+}
+#TCstage2 tr, #TCstage2 td{
+border: 1px solid black;
+}
+
+
+</style>
+<table>
+	<tr>
+		<td>
+			Количество столбцов: 
+		</td>
+		<td>
+			<input type="number" id="TCstolb">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Количество строк: 
+		</td>
+		<td>
+			<input type="number" id="TCstrok">
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			Цвет заливки таблицы + наличие рамки
+			(стандарт - оставить пустым; без рамки - 0; цвет заливки - цвет):
+		</td>
+		<td>
+			<input type="text" id="TCcolor">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="button" id="TCgo1" value="2 этап"></td>
+	</tr>
+	<tr>
+		<td colspan="2"><textarea id="TCtext"></textarea></td>
+	</tr>
+</table>
+<div id="TCstage2"></div>
+<input type="button" id="TCgo2" value="3 этап" style="display:none">
+<div id="TCstage3"></div>
+<div id="TCpreviewText"></div>
+
+<script>
+/*Тэйбл креатор+*/
+async function preview(text){
+	return await $.post("https://catwar.su/preview",{text:text});
+}
+	
+$('#TCgo1').on('click',function(){
+	var result='';
+	for(i=0;i<parseInt($('#TCstolb').val());i++){
+		var strok='';
+		for(j=0;j<parseInt($('#TCstrok').val());j++){
+			strok+='<td class="TCtd"></td>';
+		}
+		result+='<tr>'+strok+'</tr>';
+	}
+	result = '<table id="TCtable1">'+result+'</table>';
+	
+	$('#TCstage2').html(result);
+	$('.TCtd').on('click', function(){
+		$(this).html(($('#TCtext').val()!=''? $('#TCtext').val():' '));
+	});
+	$('#TCgo2').css('display','block');
+});
+$('#TCgo2').on('click',async function(){
+	var resultBBcode = '[table'+($('#TCcolor').val()==''?'':'='+$('#TCcolor').val())+']';
+	for(tr=0;tr<$('#TCtable1').children().eq(0).children().length;tr++){
+		/*для строчек*/
+		resultBBcode+='[tr]';
+		for(td=0;td<$('#TCtable1').children().eq(0).children().eq(tr).children().length;td++){
+			/*для каждй ячейки*/
+			resultBBcode+='[td]';
+			/*текст ячейки*/
+			resultBBcode+=$('#TCtable1').children().eq(0).children().eq(tr).children().eq(td).html();
+			resultBBcode+=' [/td]';
+		}
+		resultBBcode+='[/tr]';
+	}
+	resultBBcode+='[/table]';
+	
+	/*вывод, чёрт возьми*/
+	$('#TCstage3').html(await preview(resultBBcode));
+	$('#TCpreviewText').text(resultBBcode);
+});
+</script>
