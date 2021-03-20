@@ -7,15 +7,8 @@ if(window.location.host != 'catwar.su'){
 }
 
 //версия мода
-const versionML = '0.5.1 BETA';
+const versionML = '0.5.2 BETA';
 
-//доступные моды
-/*имя в Локал с, автор мода, ссылка на скрипт, разрешенные сайты*/
-var MODS = [];
-MODS[0] =  new mod('CatWarMod','Хвойница','https://openuserjs.org/install/Fredo14/CatWar_Mod.user.js',[]);
-MODS[1]  = new mod('CW_shed','Ленивый','https://openuserjs.org/install/ReiReiRei/CW_Shed.user.js',[]);
-MODS[2] = new mod('CW_WhiteSpiderweb','Ленивый','https://openuserjs.org/install/ReReRe/CW_White_Spiderweb.user.js',['https://catwar.su/cw3/']);
-MODS[3]  = new mod('More_Stickers_Addon', 'Серолапый', 'https://serolapy.github.io/mods/More_Stickers_Addon.js',[]);
 
 
 /*
@@ -649,6 +642,25 @@ MODS - Массив с модами;
 .site - сайты, где работает мод;
 */
 
+//проверка на наличие в Local Srtorage значений
+try{
+	if(!JSON.parse(localStorage.getItem('MLMods'))){
+		localStorage.setItem('MLMods', JSON.stringify([]));
+	}
+}
+catch(e){
+	if (e instanceof SyntaxError){
+		localStorage.setItem('MLMods', JSON.stringify({}));
+	}
+}
+
+/*имя в Локал с, автор мода, ссылка на скрипт, разрешенные сайты*/
+var MODS = [];
+MODS[0] =  new mod('CatWarMod','Хвойница','https://openuserjs.org/install/Fredo14/CatWar_Mod.user.js',[]);
+MODS[1]  = new mod('CW_shed','Ленивый','https://openuserjs.org/install/ReiReiRei/CW_Shed.user.js',[]);
+MODS[2] = new mod('CW_WhiteSpiderweb','Ленивый','https://openuserjs.org/install/ReReRe/CW_White_Spiderweb.user.js',['https://catwar.su/cw3/']);
+MODS[3]  = new mod('More_Stickers_Addon', 'Серолапый', 'https://serolapy.github.io/mods/More_Stickers_Addon.js',[]);
+
 /*Создание списка модов*/
 for(i=0;i<MODS.length;i++){
 	var tr = $('<tr><\/tr'),
@@ -656,10 +668,10 @@ for(i=0;i<MODS.length;i++){
 	td2 = $('<td><\/td'),
 	a='';
 	td1.append(MODS[i].name + '<br><b>Автор: </b>' + MODS[i].author);
-	if(MODS[i].check=='true'){a='toggle_on';}
+	if(MODS[i].check){a='toggle_on';}
 	else{a='toggle_off';};
 	var b = $('<a><\/a>').attr('href','#').attr('id','a_'+MODS[i].name).html("<span class='material-icons'>"+a+"<\/span>").addClass("MLCmods_window_table_button_class").attr("data-id",MODS[i].name).css('color','#EB8D8D');
-	if(MODS[i].check=='true'){b.css('color','#00FF7F');}
+	if(MODS[i].check){b.css('color','#00FF7F');}
 	td2.append(b);
 	tr.append(td1,td2);
 	$("#MLCmods_window_table tbody").append(tr);
@@ -669,13 +681,16 @@ for(i=0;i<MODS.length;i++){
 $(".MLCmods_window_table_button_class").on('click',function(e){
 	e.preventDefault();
 	
-	var MOD = $(this).attr("data-id");
-	if(localStorage.getItem(MOD)=='true'){
-		localStorage.setItem(MOD,false);
+	var MOD = $(this).attr("data-id"),
+		LS = JSON.parse(localStorage.getItem('MLMods'));
+	if(LS[MOD]){
+		LS[MOD] = false;
+		localStorage.setItem('MLMods',JSON.stringify(LS));
 		$('#a_'+MOD).children().eq(0).html('toggle_off');
 		$('#a_'+MOD).css('color','#EB8D8D');
 	}else{
-		localStorage.setItem(MOD,true);
+		LS[MOD] = true;
+		localStorage.setItem('MLMods',JSON.stringify(LS));
 		$('#a_'+MOD).children().eq(0).html('toggle_on');
 		$('#a_'+MOD).css('color','#00FF7F');
 	}
@@ -690,25 +705,27 @@ function mod(check,author,link,site /*имя в Локал с, автор мод
 			siteCheck=true
 	}}
 	if(site.length==0 || siteCheck){
-		var checkMod = localStorage.getItem(check);
-		if(checkMod==null){
+		var LS = JSON.parse(localStorage.getItem('MLMods')),
+			checkMod = LS[check];
+		if(checkMod == undefined){
 			/*дефолтные значения*/
-			checkMod = false;
-			localStorage.setItem(check,false);
+			LS[check] = false;
+			localStorage.setItem('MLMods',JSON.stringify(LS));
 		}
-		if(checkMod=='true'){
+		if(checkMod){
 			/*если мод разрешён*/
 			let script = document.createElement("script");
 			script.src = link;
 			document.getElementsByTagName("head")[0].appendChild(script);
 		}
 	}
-	this.check = localStorage.getItem(check);
+	this.check = JSON.parse(localStorage.getItem('MLMods'))[check];
 	this.author = author;
 	this.link = link;
 	this.site = site;
 	this.name = check;
 }
+
 
 
 /*
