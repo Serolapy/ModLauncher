@@ -7,7 +7,7 @@ if(window.location.host != 'catwar.su'){
 }
 
 //версия мода
-const versionML = '0.5.2 BETA';
+const versionML = '0.6.2 BETA';
 
 
 
