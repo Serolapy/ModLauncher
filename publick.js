@@ -324,7 +324,7 @@ $('body').append(`<div id="MLconsole" class="MLconsole">
 			<table class="window_table">
 				<tr>
 					<td><b>Имя: </b><span id="namecatml">Гость</span></td>
-					<td rowspan="2" style="text-align:center"><img id="avatarcatml" alt="Аватарка" src="/"  onerror="avatarML(MY_CAT_ML.id,eml)" style="max-width:250px;max-height:150px;"></td>
+					<td rowspan="2" style="text-align:center"><img id="avatarcatml" alt="Аватарка" src="/"  onerror="/*avatarML(MY_CAT_ML.id,eml)*/" style="max-width:250px;max-height:150px;"></td>
 				</tr>
 				<tr>
 					<td><b>ID: </b><span id="idcatml">Нет</span></td>
@@ -645,7 +645,7 @@ MODS - Массив с модами;
 //проверка на наличие в Local Srtorage значений
 try{
 	if(!JSON.parse(localStorage.getItem('MLMods'))){
-		localStorage.setItem('MLMods', JSON.stringify([]));
+		localStorage.setItem('MLMods', JSON.stringify({}));
 	}
 }
 catch(e){
@@ -656,10 +656,11 @@ catch(e){
 
 /*имя в Локал с, автор мода, ссылка на скрипт, разрешенные сайты*/
 var MODS = [];
-MODS[0] =  new mod('CatWarMod','Хвойница','https://openuserjs.org/install/Fredo14/CatWar_Mod.user.js',[]);
-MODS[1]  = new mod('CW_shed','Ленивый','https://openuserjs.org/install/ReiReiRei/CW_Shed.user.js',[]);
+MODS[0] =  new mod('CatWarMod','Хвойница','https://porch.website/cwmod/CatWar_Mod.user.js',[]);
+MODS[1] = new mod('CW_shed','Ленивый','https://openuserjs.org/install/ReiReiRei/CW_Shed.user.js',[]);
 MODS[2] = new mod('CW_WhiteSpiderweb','Ленивый','https://openuserjs.org/install/ReReRe/CW_White_Spiderweb.user.js',['https://catwar.su/cw3/']);
-MODS[3]  = new mod('More_Stickers_Addon', 'Серолапый', 'https://serolapy.github.io/mods/More_Stickers_Addon.js',[]);
+MODS[3] = new mod('More_Stickers_Addon', 'Серолапый', 'https://serolapy.github.io/mods/More_Stickers_Addon.js',[]);
+MODS[4] = new mod('Вароредизайн', 'Хвойница', 'https://porch.website/cwmod/CatWar_Redesign.user.js', []);
 
 /*Создание списка модов*/
 for(i=0;i<MODS.length;i++){

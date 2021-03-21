@@ -15,7 +15,7 @@ MODS - Массив с модами;
 //проверка на наличие в Local Srtorage значений
 try{
 	if(!JSON.parse(localStorage.getItem('MLMods'))){
-		localStorage.setItem('MLMods', JSON.stringify([]));
+		localStorage.setItem('MLMods', JSON.stringify({}));
 	}
 }
 catch(e){
