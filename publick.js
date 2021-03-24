@@ -9,452 +9,26 @@ if(window.location.host != 'catwar.su'){
 //версия мода
 const versionML = '0.6.2 BETA';
 
-
+/*
+//доп проверка на jQuery
+   if (!'jQuery' in window){return}
+while($('#tr_mouth').length === 0){
+	setTimeout(function(){console.log('Ждём... - Serolapy');}, 1000);
+}*/
 
 /*
 	СОЗДАНИЕ ТЕЛА КОНСОЛИ
 */
-$('head').append($('<style><\/style>').html(`
-		/*тут большой бардак. Лучше листайте дальше*/
-		.MLconsole{
-		background-color:#696969;
-		color:#FFF;
-		width:700px;
-		height:400px;
-		position:fixed;
-		bottom:10px;
-		right:10px;
-		margin: 0px;
-		border: solid black 10px;
-		border-radius: 10px;
-		transition:0.5s;
-		transform:translateX(102%);
-		font-family:Arial;
-		z-index:10000;
-	}
-	.MLconsole_active{
-		transform:translateX(0%);
-	}
-	#MLcommand input[type="text"]{
-		resize:none;
-		margin:5px;
-		border:solid 1px black;
-		width:640px;
-		height:2em;
-		font-size:1em;
-	}
-	#MLCwindows{
-		margin:3px;
-		display:block;
-		overflow:auto;
-	}
-	#MainMenu{
-		background: url(https://serolapy.github.io/mods/img/symbol.png), rgb(105,105,105);
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-		background-position: 50% 50%;
-	}
-	#MLcommand input[type="button"]{
-		width:40px;
-		background:none;
-		color:white;
-		height:2em;
-		font-size:1em;
-		margin:2.5px;
-		border:none;
-		display:inline;
-		padding:0;
-	}
-	.bottomLine{
-		background-color:black;
-		position:sticky;
-		bottom:-3px;
-		margin:0;
-		display:block;
-		width:100%;
-		left:0px;
-	}
-	.MLCwindow{
-		height:100%;
-		position:absolute;
-		width:100%;
-	}
-	.MLCwindow h1{
-		font-size: 36px;
-		margin: 0px;
-		text-align: center;
-		font-family: Arial;
-		color:white;
-	}
-	.menu{
-		color:#fff;
-		text-decoration:none;
-		border: solid 2px white;
-		margin: 6px;
-		height: 66px;
-		width: 66px;
-		font-size: 20px;
-		display: inline-flex;
-		justify-content: center;
-		align-items: center;
-		border-radius:10px;
-		background: rgba(105,105,105,0.8);
-	}
-	.menu:hover{
-		color:#7FFFD4;
-		border-color:#7FFFD4;
-	}
-	.MLCbutton_exit{
-		display:block;
-		position:absolute;
-		left:-45px;
-		bottom:0px;
-		height:30px;
-		width:30px;
-		background-color:black;
-		border-radius:50%;
-		z-index:1;
-	}
-	.MLCbutton_exit span,
-	.MLCbutton_exit span::before,
-	.MLCbutton_exit span::after{
-		position:absolute;
-		top:50%; margin-top:-1px;
-		left:50%; margin-left:-7.5px;
-		background-color:white;
-		width:15px;
-		height:2px;
-	}
-	.MLCbutton_exit span::before,
-	.MLCbutton_exit span::after{
-		content:'';
-		transition:0.5s;
-	}
-	.MLCbutton_exit span::before{
-		transform:translateY(-5px);
-	}
-	.MLCbutton_exit span::after{
-		transform:translateY(5px);
-	}
-	.MLCbutton_exit_active span::before{
-		transform: rotate(45deg);
-		
-	}
-	.MLCbutton_exit_active span::after{
-		transform: rotate(-45deg);
-	}
-	.MLCbutton_exit_active span{
-		height:0px;
-	}
-	.to_house{
-		display:flex;
-		position:absolute;
-		left:-45px;
-		bottom:0px;
-		height:30px;
-		width:30px;
-		background-color:black;
-		border-radius:50%;
-		color:white;
-		justify-content: center;
-		align-items: center;
-		text-decoration:none;
-		transition:1s;
-		filter:opacity(0%);
-		z-index:1;
-	}
-	.to_house_active{
-		bottom:40px;
-		filter:opacity(100%);
-	}
-	.desktopML1{
-		display:flex;
-		position:absolute;
-		left:-45px;
-		bottom:0px;
-		height:30px;
-		width:30px;
-		background-color:black;
-		border-radius:50%;
-		color:white;
-		justify-content: center;
-		align-items: center;
-		text-decoration:none;
-		transition:1s;
-		filter:opacity(0%);
-	}
-	.desktopML1_active{
-		bottom:80px;
-		filter:opacity(100%);
-	}
-	.MLCnot_window_ON{
-		position:absolute;
-		right:0;
-		text-decoration:none;
-		color:#EB8D8D;
-	}
-	.MLCnot_window_new{
-		position:absolute;
-		right:0;
-		text-decoration:none;
-		color:white;
-	}
-	.window_table{
-		table-layout:fixed;
-		width:100%;
-		border-collapse:collapse;
-		border:2px solid white;
-		color:black;
-	}
-	.window_table th, .window_table td{
-		padding:5px;
-		border: 1.5px solid white;
-	}
-	.MLCmods_window_table_button_class{
-		color:#EB8D8D;
-	}
-	/*Сайзы айконсов*/
-	.material-icons.md-56 { font-size: 56px; }
-	.material-icons.md-24 { font-size: 24px; }
-	/*Цвета-классы*/
-	.true{color:#00FF7F;border-color:#00FF7F;}
-	.false{color:#EB8D8D;border-color:#EB8D8D;}
-	/*
-	МОБИЛЬНАЯ ВЕРСИЯ
-	*/
-	@media only all and (max-width: 730px){
-		.MLconsole_active{
-			width: 100%;
-			bottom: 0;
-			right: 0;
-			border: 0;
-			height: 100%;
-			border-radius: 0;
-		}
-		.to_house_active{
-			transition:0s;
-			top: 0;
-			color: white;
-			border-color: white;
-			text-decoration: none;
-			margin: 0;
-			left: 50%;
-			width: 50%;
-			border-radius: 0;
-			border: 1px solid white;
-		}
-		.MLCbutton_exit_active{
-			top: 0;
-			color: white;
-			text-decoration: none;
-			margin: 0;
-			left: 0;
-			width: 50%;
-			border-radius: 0;
-			border: 1px solid white;
-		}
-		.MLCwindow{
-			padding-top: 30px;
-			height: calc(100% - 30px);
-		}
-	}
-	.desktopMLconsole{
-		width: 100%;
-		bottom: 0;
-		right: 0;
-		border: 0;
-		height: 100%;
-		border-radius: 0;
-	}
-	.to_housedesctop{
-		transition:0s;
-		top: 0;
-		color: white;
-		border-color: white;
-		text-decoration: none;
-		margin: 0;
-		left: 50%;
-		width: 50%;
-		border-radius: 0;
-		border: 1px solid white;
-	}
-	.MLCbutton_exitdesctop{
-		top: 0;
-		color: white;
-		text-decoration: none;
-		margin: 0;
-		left: 0;
-		width: 50%;
-		border-radius: 0;
-		border: 1px solid white;
-	}
-	.MLCwindowdesctop{
-		padding-top: 30px;
-	}
-	#TCstage2 table{
-	border: 1px solid black;    
-	border-collapse: collapse;
-	width:100%;
-	}
-	#TCstage2 tr, #TCstage2 td{
-	border: 1px solid black;
-	}
-	`))
-	$('head').append($('<link>').attr('href','https://fonts.googleapis.com/icon?family=Material+Icons').attr('rel','stylesheet'));
-$('body').append(`<div id="MLconsole" class="MLconsole">
-	<a href="#" id="desktopML1" style="color:white;border-color:white;text-decoration:none;" class="desktopML1"><span class="material-icons" style="color:white">laptop</span>
-	<a href="#" id="to_house" class="to_house" style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-24">home</span></a>
-	<a href="#" id="MLCbutton_exit" class="MLCbutton_exit"><span></span></a>
-	<div id="MLCwindows" style="height: 100%;width: 100%;position: absolute;">
-		<!--MainMenu-->
-		<div id="MainMenu" class="MLCwindow">
-			<h1>Mod Launcher version 0.5.1 BETA</h1>
-			<a href="#" class="menu" data-id="MLCaccount"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">perm_identity</span></a>
-			<a href="#" class="menu" data-id="MLCcode"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">code</span></a>
-			<a href="#" class="menu" data-id="MLCmods"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">settings</span></a>
-			<a href="#" class="menu" id="MLCnot" data-id="MLCnot_window"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">notifications</span></a>
-			<a href="#" class="menu" data-id="settings_ML"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">app_settings_alt</span></a>
-			<a href="#" id="TableCreatorbtn" data-id="TableCreator" class="menu" style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">border_all</span></a>
-			<a href="#" id="cancelML" class="menu" style="color:white;border-color:#EB8D8D;text-decoration:none;"><span class="material-icons md-56">cancel</span></a>
-		</div>
-		
-		<!--Windows-->
-		<!--Аккаунт-->
-		<div id="MLCaccount" style="display:none;" class="MLCwindow">
-			<table class="window_table">
-				<tr>
-					<td><b>Имя: </b><span id="namecatml">Гость</span></td>
-					<td rowspan="2" style="text-align:center"><img id="avatarcatml" alt="Аватарка" src="/"  onerror="/*avatarML(MY_CAT_ML.id,eml)*/" style="max-width:250px;max-height:150px;"></td>
-				</tr>
-				<tr>
-					<td><b>ID: </b><span id="idcatml">Нет</span></td>
-				</tr>
-			</table>
-		</div>
-		
-		<!--TableCreator-->
-		<div id="TableCreator" style="display:none;" class="MLCwindow">
-			<table class="window_table">
-				<tr>
-					<td>
-						Количество строк: 
-					</td>
-					<td>
-						<input type="number" id="TCstolb" style="width:100%">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Количество ячеек: 
-					</td>
-					<td>
-						<input type="number" id="TCstrok" style="width:100%">
-					</td>
-				</tr>
-				
-				<tr>
-					<td>
-						Цвет заливки таблицы + наличие рамки
-						(стандарт - оставить пустым; без рамки - 0; цвет заливки - цвет):
-					</td>
-					<td>
-						<input type="text" id="TCcolor" style="width:100%">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align:center"><input type="button" id="TCgo1" value="2 этап" style="width:40%"></td>
-				</tr>
-				<tr>
-					<td colspan="2"><textarea id="TCtext" style="width:100%"></textarea></td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align:center"><div id="TCstage2"></div></td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align:center"><input type="button" id="TCgo2" value="3 этап" style="display:none; width:40%"></td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align:center"><div id="TCstage3"></div></td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align:center"><div id="TCpreviewText"></div></td>
-				</tr>
-				
-			</table>
-		</div>
-		
-		<!--Моды-->
-		<div id="MLCmods" style="display:none;" class="MLCwindow">
-			<table id="MLCmods_window_table" class="window_table">
-				<thead>
-					<tr>
-						<th style="width:75%">Модификация</th>
-						<th style="width:25%">Состояние</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-		
-		</div>
-		
-		<!--Настройки системы-->
-		<div id="settings_ML" style="display:none;" class="MLCwindow">
-			<table class="window_table">
-			
-				<tr>
-					<td>
-						На весь экран (не работает на телефоне) 
-					</td>
-					<td>
-						<span id="desktopML" class="material-icons" style="color:white">laptop</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Версия мода:
-					</td>
-					<td>
-						<span id="versonML">~</span>
-					</td>
-				</tr>
-				
-				
-			</table>
-		</div>
-		<!--Коды-->
-		<div id="MLCcode" style="display:none;" class="MLCwindow">
-			<h1>Режим разработчика</h1>
-			<div id="MLCcommand_text"></div>
-			<div id="MLcommand" class="bottomLine">
-				<input type="text" id="MLCsubmit_text"><input type="button" value=">" id="MLCsubmit_button">
-			</div>
-		</div>
-		
-		<!--Уведомления-->
-		<div id="MLCnot_window" style="display:none;" class="MLCwindow">
-			<h1>Уведомления</h1>
-			<table id="MLCnot_window_table" class="window_table">
-				<thead>
-					<tr>
-						<th style="width:80%">
-							Текст
-						</th>
-						<th style="width:20%">
-							Время
-						</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-			<div class="bottomLine">Показ уведомлений: <a href="#" id="MLCnot_window_ON" class="MLCnot_window_ON" style="color:#EB8D8D;border-color:#EB8D8D;text-decoration:none;"><span class="material-icons">toggle_off</span></a><br>
-			Создать уведомление: <a href="#" id="MLCnot_window_new" class="MLCnot_window_new" style="color:white;border-color:white;text-decoration:none;"><span class="material-icons">settings_applications</span></a>
-			
-			</div>
-		</div>
-	</div>
-</div>
-`);
-
+//стили консоли
+$('head').append($('<link>').attr('href','https://fonts.googleapis.com/icon?family=Material+Icons').attr('rel','stylesheet'));
+//гугл шрифты иконок
+$('head').append($('<link>').attr('href','https://fonts.googleapis.com/icon?family=Material+Icons').attr('rel','stylesheet'));
+//тело консоли ДЕБАГ
+var consoleHTML = $.get('https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/body.html');
+while(consoleHTML.responseText == undefined){
+	setTimeout(function(){return},1000);
+}
+$('body').append(consoleHTML.responseText);
 
 /*
 	КНОПКИ И ФУНКЦИИ КОНСОЛИ И МОДА В ЦЕЛОМ
@@ -774,4 +348,68 @@ $('#TCgo2').on('click',async function(){
 	$('#TCpreviewText').text(resultBBcode);
 });
 
-//meow
+/*
+	БАТОН-АДДОН
+*/
+var check = JSON.parse(localStorage.getItem('serolapy_new_img'));
+if (!check){
+	localStorage.setItem('serolapy_new_img', JSON.stringify([]));
+}
+
+//обновление данных таблицы
+function update(){
+	var LocalS = JSON.parse(localStorage.getItem('serolapy_new_img')),
+		tbody = '';
+	$('#menu_rot tbody').html('');
+	for(i=0; i < LocalS.length; i++){
+		tbody += '<tr><td>' + LocalS[i]['old'] + '</td><td>' + LocalS[i]['new'] + '</td><td><input type="button" class="serolapy_minus" value="-" data-id="' + i + '"></td></tr>';
+	}
+
+	$('#menu_rot tbody').html(tbody);
+	removeLink();
+
+	//замена значний на поле
+	for(j=0; j<LocalS.length; j++){
+		var re = LocalS[j]['old'];
+		for (k=0; k < $('img[src="'+re+'"]').length;k++){
+			$('img[src="'+re+'"]:eq('+k+')').attr('src', LocalS[j]['new']);
+		}
+	}
+}
+
+//сохранение данных
+$('#menu_rot_add').on('click',function(){
+	if($('#menu_rot_link').val()=='' || $('#menu_rot_newLink').val()==''){
+		return
+	}
+
+	var LocalS = JSON.parse(localStorage.getItem('serolapy_new_img'));
+
+	LocalS.push({'old' : $('#menu_rot_link').val(), 'new' : $('#menu_rot_newLink').val()});
+	$('#menu_rot_link').val('');
+	$('#menu_rot_newLink').val('');
+
+	localStorage.setItem('serolapy_new_img', JSON.stringify(LocalS));
+
+	update();
+	removeLink();
+});
+
+//удаление
+function removeLink(){
+	var btn = $('.serolapy_minus');
+	btn.off('click');
+	btn.on('click',function(){
+		var LocalS = JSON.parse(localStorage.getItem('serolapy_new_img'));
+		LocalS.splice($(this).data('id'),1);
+		localStorage.setItem('serolapy_new_img', JSON.stringify(LocalS));
+		update();
+	});
+}
+$("#tr_mouth, #tr_field").bind("DOMSubtreeModified", function() {
+	update();
+	console.log('a');
+});
+update();
+
+//мяу
