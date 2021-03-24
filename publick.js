@@ -5,9 +5,8 @@ if(window.location.host != 'catwar.su'){
 	//и там начинается анархия
 	window.stop();
 }
-
-//версия мода
-const versionML = '0.6.2 BETA';
+const versionML = '0.6.2 BETA'; //версия мода
+const MainMenu_version = versionML //надпись на главном экране
 
 /*
 //доп проверка на jQuery
@@ -20,15 +19,21 @@ while($('#tr_mouth').length === 0){
 	СОЗДАНИЕ ТЕЛА КОНСОЛИ
 */
 //стили консоли
-$('head').append($('<link>').attr('href','https://fonts.googleapis.com/icon?family=Material+Icons').attr('rel','stylesheet'));
+$('head').append($('<link>').attr('href','https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/style.css').attr('rel','stylesheet'));
+
 //гугл шрифты иконок
 $('head').append($('<link>').attr('href','https://fonts.googleapis.com/icon?family=Material+Icons').attr('rel','stylesheet'));
+
 //тело консоли ДЕБАГ
-var consoleHTML = $.get('https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/body.html');
-while(consoleHTML.responseText == undefined){
-	setTimeout(function(){return},1000);
+$.get('https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/body.html',function(data){
+	$('body').append(data);
+});
+
+//ожидание прогрузки консоли
+while(!$('#MLconsole').length){
+	console.log('Ждём загрузки Mod Launcher...');
 }
-$('body').append(consoleHTML.responseText);
+
 
 /*
 	КНОПКИ И ФУНКЦИИ КОНСОЛИ И МОДА В ЦЕЛОМ
@@ -98,6 +103,7 @@ if(!localStorage.getItem('versionML')){
 
 /*версии модов на экран настройки*/
 $('#versonML').html(versionML);
+$('#MainMenu_version').html(MainMenu_version);
 
 
 /*
@@ -302,7 +308,6 @@ function mod(check,author,link,site /*имя в Локал с, автор мод
 }
 
 
-
 /*
 	ТЭЙБЛ КРЕАТОР+
 */
@@ -348,6 +353,7 @@ $('#TCgo2').on('click',async function(){
 	$('#TCpreviewText').text(resultBBcode);
 });
 
+
 /*
 	БАТОН-АДДОН
 */
@@ -360,12 +366,12 @@ if (!check){
 function update(){
 	var LocalS = JSON.parse(localStorage.getItem('serolapy_new_img')),
 		tbody = '';
-	$('#menu_rot tbody').html('');
+	$('#MLbaton_table tbody').html('');
 	for(i=0; i < LocalS.length; i++){
 		tbody += '<tr><td>' + LocalS[i]['old'] + '</td><td>' + LocalS[i]['new'] + '</td><td><input type="button" class="serolapy_minus" value="-" data-id="' + i + '"></td></tr>';
 	}
 
-	$('#menu_rot tbody').html(tbody);
+	$('#MLbaton_table tbody').html(tbody);
 	removeLink();
 
 	//замена значний на поле
@@ -408,7 +414,6 @@ function removeLink(){
 }
 $("#tr_mouth, #tr_field").bind("DOMSubtreeModified", function() {
 	update();
-	console.log('a');
 });
 update();
 
