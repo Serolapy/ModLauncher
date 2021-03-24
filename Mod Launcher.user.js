@@ -19,5 +19,5 @@ while(!("jQuery" in window)){
 	setTimeout(function(){return}, 1000);
 }
 var ModLauncher = document.createElement("script");
-ModLauncher.src = "https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/0%D0%A1%D0%B1%D0%BE%D1%80%D0%BA%D0%B0.js";
+ModLauncher.src = "https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/publick.js";
 document.getElementsByTagName("head")[0].appendChild(ModLauncher);
