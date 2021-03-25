@@ -15,9 +15,9 @@
 // @include      https://catwar.su/*
 // ==/UserScript==
 
-while(!("jQuery" in window)){
-	setTimeout(function(){return}, 1000);
-}
-var ModLauncher = document.createElement("script");
-ModLauncher.src = "https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/publick.js";
-document.getElementsByTagName("head")[0].appendChild(ModLauncher);
+(function(){
+	var ModLauncher = document.createElement("script");
+	ModLauncher.src = "https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/publick.js";
+	ModLauncher.type = 'text/javascript';
+	document.getElementsByTagName("head")[0].appendChild(ModLauncher);
+})();
