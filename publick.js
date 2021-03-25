@@ -28,12 +28,6 @@ $('head').append($('<link>').attr('href','https://fonts.googleapis.com/icon?fami
 $.get('https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/body.html',function(data){
 	$('body').append(data);
 
-/* 
-//ожидание прогрузки консоли
-while(!$('#MLconsole').length){
-	console.log('Ждём загрузки Mod Launcher...');
-} */
-
 
 /*
 	КНОПКИ И ФУНКЦИИ КОНСОЛИ И МОДА В ЦЕЛОМ
