@@ -27,12 +27,6 @@ $('head').append($('<link>').attr('href','https://fonts.googleapis.com/icon?fami
 //тело консоли ДЕБАГ
 $.get('https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/body.html',function(data){
 	$('body').append(data);
-});
-
-//ожидание прогрузки консоли
-while(!$('#MLconsole').length){
-	console.log('Ждём загрузки Mod Launcher...');
-}
 
 
 /*
@@ -418,3 +412,4 @@ $("#tr_mouth, #tr_field").bind("DOMSubtreeModified", function() {
 update();
 
 //мяу
+});
