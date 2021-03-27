@@ -16,8 +16,14 @@
 // ==/UserScript==
 
 (function(){
+	/*
 	var ModLauncher = document.createElement("script");
 	ModLauncher.src = "https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/publick.js";
 	ModLauncher.type = 'text/javascript';
 	document.getElementsByTagName("head")[0].appendChild(ModLauncher);
+	*/
+	
+	$.get('https://raw.githubusercontent.com/Serolapy/ModLauncher/master/publick.js', function(data){
+		new Function(data)();
+	});
 })();
