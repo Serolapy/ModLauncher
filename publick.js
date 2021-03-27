@@ -5,35 +5,24 @@ if(window.location.host != 'catwar.su'){
 	//и там начинается анархия
 	window.stop();
 }
-const versionML = '0.6.2 BETA'; //версия мода
-const MainMenu_version = versionML //надпись на главном экране
-
-/*
-//доп проверка на jQuery
-   if (!'jQuery' in window){return}
-while($('#tr_mouth').length === 0){
-	setTimeout(function(){console.log('Ждём... - Serolapy');}, 1000);
-}*/
+const versionML = '0.6.5.1 BETA'; 		//версия мода
+const MainMenu_version = versionML;		//надпись на главном экране
+const BRANCH = 'Test';					//ветка на GitHub | 'Test' - для тестов, 'master' - для релизов
 
 /*
 	СОЗДАНИЕ ТЕЛА КОНСОЛИ
 */
 //стили консоли
-$('head').append($('<link>').attr('href','https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/style.css').attr('rel','stylesheet'));
+$.get('https://raw.githubusercontent.com/Serolapy/ModLauncher/' + BRANCH + '/style.css', function(styles){
+	$('head').append($('<style></style>').text(styles));
+})
 
 //гугл шрифты иконок
 $('head').append($('<link>').attr('href','https://fonts.googleapis.com/icon?family=Material+Icons').attr('rel','stylesheet'));
 
-//тело консоли ДЕБАГ
-$.get('https://cdn.jsdelivr.net/gh/Serolapy/ModLauncher/body.html',function(data){
+//тело консоли
+$.get('https://raw.githubusercontent.com/Serolapy/ModLauncher/' + BRANCH+ '/body.html',function(data){
 	$('body').append(data);
-
-/* 
-//ожидание прогрузки консоли
-while(!$('#MLconsole').length){
-	console.log('Ждём загрузки Mod Launcher...');
-} */
-
 
 /*
 	КНОПКИ И ФУНКЦИИ КОНСОЛИ И МОДА В ЦЕЛОМ
@@ -236,7 +225,7 @@ catch(e){
 
 /*имя в Локал с, автор мода, ссылка на скрипт, разрешенные сайты*/
 var MODS = [];
-MODS[0] =  new mod('CatWarMod','Хвойница','https://porch.website/cwmod/CatWar_Mod.user.js',[]);
+MODS[0] = new mod('CatWarMod','Хвойница','https://porch.website/cwmod/CatWar_Mod.user.js',[]);
 MODS[1] = new mod('CW_shed','Ленивый','https://openuserjs.org/install/ReiReiRei/CW_Shed.user.js',[]);
 MODS[2] = new mod('CW_WhiteSpiderweb','Ленивый','https://openuserjs.org/install/ReReRe/CW_White_Spiderweb.user.js',['https://catwar.su/cw3/']);
 MODS[3] = new mod('More_Stickers_Addon', 'Серолапый', 'https://serolapy.github.io/mods/More_Stickers_Addon.js',[]);
