@@ -7,7 +7,7 @@ if(window.location.host != 'catwar.su'){
 }
 const versionML = '0.6.5.1 BETA'; 		//версия мода
 const MainMenu_version = versionML;		//надпись на главном экране
-const BRANCH = 'Test';					//ветка на GitHub | 'Test' - для тестов, 'master' - для релизов
+const BRANCH = 'master';			//ветка на GitHub | 'Test' - для тестов, 'master' - для релизов
 
 /*
 	СОЗДАНИЕ ТЕЛА КОНСОЛИ
