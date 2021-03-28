@@ -101,11 +101,20 @@ $('#MainMenu_version').html(MainMenu_version);
 /*написание функции*/
 $('#MLCsubmit_button').on('click',function(e){
 	e.preventDefault();
-	var script = $('<script><\/script>').html($('#MLCsubmit_text').val()),
-		div = $('<div><\/div>').html($('#MLCsubmit_text').val() + '<br>');
-	div.addClass("function_text_button");
-	div.append(script);
-	$('#MLCcommand_text').append(div);
+	
+	//код
+	var code = $('#MLCsubmit_text').val();
+	
+	//вставка его на страницу в поле с кодом игрока
+	$('#MLCcommand_text').append($('<div></div').text(code).addClass('MLcode_user_function').addClass('MLcode_user_function_text'));
+	
+	try{
+		//генерация функции игрока
+		new Function(code)();
+	} catch(userError){
+		//в случае ошибки
+		$('#MLCcommand_text').append($('<div></div>').html('<b>' + userError.name + '</b><br><i>' + userError.message + '</i>').addClass('MLcode_user_function').addClass('MLcode_user_function_error'));
+	}
 });
 
 

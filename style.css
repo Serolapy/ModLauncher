@@ -253,6 +253,20 @@
 		text-shadow: -3px 0px 2px #696969;
 		font-weight: bold;
 	}
+/*блоки в поле консоли разраба*/
+.MLcode_user_function{
+    border-bottom: 1px solid white;
+    padding: 10px 3px;
+}
+/*ошибка*/
+.MLcode_user_function_error::first-line{
+    color:red;
+}
+/*код игрока*/
+.MLcode_user_function_text:before{
+    content: '>> ';
+}
+
 	
 /*
 	УВЕДОМЛЕНИЯ

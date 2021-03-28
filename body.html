@@ -13,6 +13,7 @@
 			<a href="#" class="menu" data-id="settings_ML"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">app_settings_alt</span></a>
 			<a href="#" id="TableCreatorbtn" data-id="TableCreator" class="menu" style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">border_all</span></a>
 			<a href="#" class="menu" data-id="MLbaton"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">image</span></a>
+			<a href="#" class="menu" data-id="MLCdonate"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">attach_money</span></a>
 			<a href="#" id="cancelML" class="menu" style="color:white;border-color:#EB8D8D;text-decoration:none;"><span class="material-icons md-56">cancel</span></a>
 		</div>
 		
@@ -158,7 +159,7 @@
 		</div>
 		<!--Батон-Аддон-->
 		<div id="MLbaton" style="display:none;" class="MLCwindow">
-			<table id="MLbaton_table">
+			<table id="MLbaton_table" class="window_table">
 			<thead>
 				<tr>
 					<td>
@@ -174,6 +175,11 @@
 			</thead>
 			<tbody></tbody>
 			</table>
+		</div>
+		<!--Донат-->
+		<div id="MLCdonate" style="display:none;" class="MLCwindow">
+			<h1>Добровольные пожертвования</h1>
+			Если вы хотите поддержать разработчика, вы можете перевести ему кроли. Передача идёт <u>добровольно</u>, никого к этому не принуждаем.<br><i>Я хочу поддержать разработчика кролями в размере <input type="number" id="MLCdonate_value" placeholder="Целое число" min="1"> кролей. <input type="button" id="MLCdonate_button" value="Подтвердить">
 		</div>
 	</div>
 </div>
