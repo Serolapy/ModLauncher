@@ -513,7 +513,7 @@ $('#MLmessage_off').on('click', function(){
 $('#MLmessage').on('click', function(){
 	$('#MLmessage').css({'color':'white','border-color':'white'});
 	$('#MLCbutton_exit').removeClass('MLCbutton_exit_newMessage');
-}
+});
 
 
 //мяу
