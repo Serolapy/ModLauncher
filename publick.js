@@ -477,10 +477,10 @@ function getUpdateMessage(){
 				returnTime = '';
 			if(heute.getDate() == timeMsg.timeMsg() && heute.getMonth() == timeMsg.getMonth() && heute.getFullYear() == timeMsg.getFullYear()){
 				//сегодняшнее сообщение
-				returnTime = timeMsg.getHours() + ':' timeMsg.getMinutes();
+				returnTime = timeMsg.getHours() + ':' + timeMsg.getMinutes();
 			} else{
 				//иначе
-				returnTime = timeMsg.getDate() + '.' (timeMsg.getMonth() + 1);
+				returnTime = timeMsg.getDate() + '.' + (timeMsg.getMonth() + 1);
 			}
 			messagesHtml += '<td class="MLmessage_msg_time">' + returnTime + '</td></tr>';
 		}
