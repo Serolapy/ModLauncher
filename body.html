@@ -13,6 +13,7 @@
 			<a href="#" class="menu" data-id="settings_ML"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">app_settings_alt</span></a>
 			<a href="#" id="TableCreatorbtn" data-id="TableCreator" class="menu" style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">border_all</span></a>
 			<a href="#" class="menu" data-id="MLbaton"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">image</span></a>
+			<a href="#" class="menu" data-id="MLmessage"style="color:white;border-color:white;text-decoration:none;" id="MLmessage"><span class="material-icons md-56">mail</span></a>
 			<a href="#" class="menu" data-id="MLCdonate"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">attach_money</span></a>
 			<a href="#" id="cancelML" class="menu" style="color:white;border-color:#EB8D8D;text-decoration:none;"><span class="material-icons md-56">cancel</span></a>
 		</div>
@@ -179,7 +180,41 @@
 		<!--Донат-->
 		<div id="MLCdonate" style="display:none;" class="MLCwindow">
 			<h1>Добровольные пожертвования</h1>
-			Если вы хотите поддержать разработчика, вы можете перевести ему кроли. Передача идёт <u>добровольно</u>, никого к этому не принуждаем.<br><i>Я хочу поддержать разработчика кролями в размере <input type="number" id="MLCdonate_value" placeholder="Целое число" min="1"> кролей. <input type="button" id="MLCdonate_button" value="Подтвердить">
+			Если вы хотите поддержать разработчика, вы можете перевести ему кроли. Передача идёт <u>добровольно</u>, никого к этому не принуждаем.<br><i>Я хочу поддержать разработчика кролями в размере <input type="number" id="MLCdonate_value" placeholder="Целое число" min="1" value="1"> штук. <input type="button" id="MLCdonate_button" value="Подтвердить">
+		</div>
+		<!--Сообщения-->
+		<div id="MLmessage" style="display:none;" class="MLCwindow">
+			<table id="MLmessage_table">
+				<thead>
+					<tr>
+						<td>
+							<select id="MLmessage_folder">
+								<!--0 - входящие, 1 - исходящие, 2 - непрочитанные-->
+								<option value="0" selected>Входящие</option>
+								<option value="1" selected>Исходящие</option>
+								<option value="2" selected>Непрочитанные</option>
+							</select>
+						</td>
+						<td>
+							<select id="MLmessage_page">
+								<option value="1" selected>1</option>
+							</select>
+						</td>
+						<td>(<span id="MLmessage_messageInFolder">~</span>)</td>
+					</tr>
+					<tr>
+						<td>Тема</td>
+						<td id="MLmessage_poluch">Кому</td>
+						<td>Время</td>
+					</tr>
+				</thead>
+				<tbody></tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3"><input type="button" id="MLmessage_off" value="Остановить"></td>
+					</tr>
+				</tfoot>
+			</table>
 		</div>
 	</div>
 </div>
