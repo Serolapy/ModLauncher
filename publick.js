@@ -5,7 +5,7 @@ if(window.location.host != 'catwar.su'){
 	//и там начинается анархия
 	window.stop();
 }
-const versionML = '0.6.8 BETA'; 		//версия мода
+const versionML = '0.6.9 BETA'; 		//версия мода
 const MainMenu_version = versionML;		//надпись на главном экране
 const BRANCH = 'Test';					//ветка на GitHub | 'Test' - для тестов, 'master' - для релизов
 
@@ -433,6 +433,7 @@ $('#MLCdonate_button').on('click', function(){
 /*
 	СООБЩЕНИЯ
 */
+/*
 function getUpdateMessage(){
 	var folder = $('#MLmessage_folder').val() || 0,	//номер папки
 		page = $('#MLmessage_page').val();			//страница
@@ -493,7 +494,7 @@ function getUpdateMessage(){
 		var LocStor = parseInt(localStorage.getItem('MLmessage_new_test'));
 		if(LocStor < data.count['notRead']){
 			//есть непрочитанные
-			$('#MLmessage').css({'color':'#EB8D8D','border-color':'#EB8D8D'});
+			$('#MLmessageBtn').css({'color':'#EB8D8D','border-color':'#EB8D8D'});
 			$('#MLCbutton_exit').addClass('MLCbutton_exit_newMessage');
 		}
 		localStorage.setItem('MLmessage_new_test', data.count['notRead'])
@@ -511,10 +512,10 @@ $('#MLmessage_off').on('click', function(){
 
 //отметка о том, что игрок заметил новое сообщение
 $('#MLmessage').on('click', function(){
-	$('#MLmessage').css({'color':'white','border-color':'white'});
+	$('#MLmessageBtn').css({'color':'white','border-color':'white'});
 	$('#MLCbutton_exit').removeClass('MLCbutton_exit_newMessage');
 });
-
+*/
 
 //мяу
 });
