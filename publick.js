@@ -5,9 +5,11 @@ if(window.location.host != 'catwar.su'){
 	//и там начинается анархия
 	window.stop();
 }
-const versionML = '0.6.5.1 BETA'; 		//версия мода
+
+const versionML = '1.0'; 				//версия мода
 const MainMenu_version = versionML;		//надпись на главном экране
-const BRANCH = 'master';			//ветка на GitHub | 'Test' - для тестов, 'master' - для релизов
+const BRANCH = 'master';				//ветка на GitHub | 'Test' - для тестов, 'master' - для релизов
+
 
 /*
 	СОЗДАНИЕ ТЕЛА КОНСОЛИ
@@ -101,11 +103,22 @@ $('#MainMenu_version').html(MainMenu_version);
 /*написание функции*/
 $('#MLCsubmit_button').on('click',function(e){
 	e.preventDefault();
-	var script = $('<script><\/script>').html($('#MLCsubmit_text').val()),
-		div = $('<div><\/div>').html($('#MLCsubmit_text').val() + '<br>');
-	div.addClass("function_text_button");
-	div.append(script);
-	$('#MLCcommand_text').append(div);
+
+	
+	//код
+	var code = $('#MLCsubmit_text').val();
+	
+	//вставка его на страницу в поле с кодом игрока
+	$('#MLCcommand_text').append($('<div></div').text(code).addClass('MLcode_user_function').addClass('MLcode_user_function_text'));
+	
+	try{
+		//генерация функции игрока
+		new Function(code)();
+	} catch(userError){
+		//в случае ошибки
+		$('#MLCcommand_text').append($('<div></div>').html('<b>' + userError.name + '</b><br><i>' + userError.message + '</i>').addClass('MLcode_user_function').addClass('MLcode_user_function_error'));
+	}
+
 });
 
 
@@ -227,7 +240,7 @@ catch(e){
 var MODS = [];
 MODS[0] = new mod('CatWarMod','Хвойница','https://porch.website/cwmod/CatWar_Mod.user.js',[]);
 MODS[1] = new mod('CW_shed','Ленивый','https://openuserjs.org/install/ReiReiRei/CW_Shed.user.js',[]);
-MODS[2] = new mod('CW_WhiteSpiderweb','Ленивый','https://openuserjs.org/install/ReReRe/CW_White_Spiderweb.user.js',['https://catwar.su/cw3/']);
+MODS[2] = new mod('CW_WhiteSpiderweb','strongfish95','https://openuserjs.org/install/ReReRe/CW_White_Spiderweb.user.js',['https://catwar.su/cw3/']);
 MODS[3] = new mod('More_Stickers_Addon', 'Серолапый', 'https://serolapy.github.io/mods/More_Stickers_Addon.js',[]);
 MODS[4] = new mod('Вароредизайн', 'Хвойница', 'https://porch.website/cwmod/CatWar_Redesign.user.js', []);
 
@@ -406,5 +419,109 @@ $("#tr_mouth, #tr_field").bind("DOMSubtreeModified", function() {
 });
 update();
 
+
+/*
+	ПОЖЕРТВОВАНИЯ
+*/
+$('#MLCdonate_button').on('click', function(){
+	var value = Math.floor($('#MLCdonate_value').val());
+	if (value <= 0){
+		alert('Ошибка. Число не может быть меньше либо равно нулю');
+		return
+	}
+	if(confirm('Вы действительно хотите это сделать?\n__________\nВ случае чего Mod Launcher не может отловить ошибки, смотрите лог')){
+		$.post('https://catwar.su/rabbit', {rabbit : value, cat : 982738, comment : 'Помощь голодающим программистам от добрых котиков'});
+		alert(' o(>ω<)o Спасибо!:3');
+	}
+});
+
+/*
+	СООБЩЕНИЯ
+*/
+/*
+function getUpdateMessage(){
+	var folder = $('#MLmessage_folder').val() || 0,	//номер папки
+		page = $('#MLmessage_page').val();			//страница
+	
+	//смена слова "Кому" и "От кого"
+	if(folder == 0 || folder == 2){
+		$('#MLmessage_poluch').text('От кого');
+	} else{
+		$('#MLmessage_poluch').text('Кому');
+	}
+	
+	$.post('https://catwar.su/ajax/mess_folder', {folder: folder, page: page, del:0}, function(data){
+		try{
+			data = JSON.parse(data);
+		} catch{
+			alert('Ошибка приёма данных сообщений');
+			return
+		}
+		
+		//количество сообщений в папке
+		$('#MLmessage_messageInFolder').text(data.count[folder]);
+		
+		//количество страниц
+		var pageHtml = '';
+		for(i=1; i<=data.page; i++){
+			pageHtml += '<option value="' + i + '"' + (i==1 ? 'selected':'') + '>' + i + '</option>';
+		}
+		$('#MLmessage_page').html(pageHtml);
+		
+		//поле с сообщениями
+		var messages = data.msg,
+			messagesHtml = '';
+		for(j=0;j<messages.length;j++){
+			var msg = messages[j];
+			//тема + ссылка на открытие
+			messagesHtml += '<tr' (msg['new'] == 0? ' class="MLmessage_notRead"' : '') + '><td><a href="#" data-id="' + msg.id + '" class="MLmessage_msg_subject">' + msg.subject + '</a></td>';
+			//оправитель/получаетль
+			messagesHtml += '<td class="MLmessage_msg_login">' + msg.login + '</td>';
+			//время
+			var heute = new Date(),
+				timeMsg = new Date(msg.time),
+				returnTime = '';
+			if(heute.getDate() == timeMsg.timeMsg() && heute.getMonth() == timeMsg.getMonth() && heute.getFullYear() == timeMsg.getFullYear()){
+				//сегодняшнее сообщение
+				returnTime = timeMsg.getHours() + ':' + timeMsg.getMinutes();
+			} else{
+				//иначе
+				returnTime = timeMsg.getDate() + '.' + (timeMsg.getMonth() + 1);
+			}
+			messagesHtml += '<td class="MLmessage_msg_time">' + returnTime + '</td></tr>';
+		}
+		$('#MLmessage_table tbody').html(messagesHtml);
+		
+		//поиск непрочитанных
+		if(localStorage.getItem('MLmessage_new_test') === null){
+			localStorage.setItem('MLmessage_new_test', 0);
+		}
+		var LocStor = parseInt(localStorage.getItem('MLmessage_new_test'));
+		if(LocStor < data.count['notRead']){
+			//есть непрочитанные
+			$('#MLmessageBtn').css({'color':'#EB8D8D','border-color':'#EB8D8D'});
+			$('#MLCbutton_exit').addClass('MLCbutton_exit_newMessage');
+		}
+		localStorage.setItem('MLmessage_new_test', data.count['notRead'])
+	});
+}
+$('#MLmessage_folder, #MLmessage_page').change(getUpdateMessage);
+var messageInterval = setInterval(getUpdateMessage, 30000);
+
+//отключение
+$('#MLmessage_off').on('click', function(){
+		if(confirm('Вы действительно хотите отключить получение сообщений на этой странице?')){
+			clearInterval(messageInterval);
+		}
+});
+
+//отметка о том, что игрок заметил новое сообщение
+$('#MLmessage').on('click', function(){
+	$('#MLmessageBtn').css({'color':'white','border-color':'white'});
+	$('#MLCbutton_exit').removeClass('MLCbutton_exit_newMessage');
+});
+*/
+
 //мяу
 });
+

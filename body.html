@@ -5,21 +5,24 @@
 	<div id="MLCwindows" style="height: 100%;width: 100%;position: absolute;">
 		<!--MainMenu-->
 		<div id="MainMenu" class="MLCwindow">
-			<h1>Mod Launcher version <span id="MainMenu_version"></span></h1>
-			<a href="#" class="menu" data-id="MLCaccount"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">perm_identity</span></a>
+			<h1>Mod Launcher <span id="MainMenu_version"> </span></h1>
+			<!--<a href="#" class="menu" data-id="MLCaccount"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">perm_identity</span></a>-->
 			<a href="#" class="menu" data-id="MLCcode"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">code</span></a>
 			<a href="#" class="menu" data-id="MLCmods"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">settings</span></a>
 			<a href="#" class="menu" id="MLCnot" data-id="MLCnot_window"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">notifications</span></a>
 			<a href="#" class="menu" data-id="settings_ML"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">app_settings_alt</span></a>
 			<a href="#" id="TableCreatorbtn" data-id="TableCreator" class="menu" style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">border_all</span></a>
 			<a href="#" class="menu" data-id="MLbaton"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">image</span></a>
+			<!--<a href="#" class="menu" data-id="MLmessage"style="color:white;border-color:white;text-decoration:none;" id="MLmessageBtn"><span class="material-icons md-56">mail</span></a>-->
+			<a href="#" class="menu" data-id="MLCdonate"style="color:white;border-color:white;text-decoration:none;"><span class="material-icons md-56">attach_money</span></a>
 			<a href="#" id="cancelML" class="menu" style="color:white;border-color:#EB8D8D;text-decoration:none;"><span class="material-icons md-56">cancel</span></a>
 		</div>
 		
 		<!--Windows-->
 		<!--Аккаунт-->
 		<div id="MLCaccount" style="display:none;" class="MLCwindow">
-			<table class="window_table">
+			<!--не работает-->
+			<!--<table class="window_table">
 				<tr>
 					<td><b>Имя: </b><span id="namecatml">Гость</span></td>
 					<td rowspan="2" style="text-align:center"><img id="avatarcatml" alt="Аватарка" src="/"  onerror="/*avatarML(MY_CAT_ML.id,eml)*/" style="max-width:250px;max-height:150px;"></td>
@@ -27,11 +30,12 @@
 				<tr>
 					<td><b>ID: </b><span id="idcatml">Нет</span></td>
 				</tr>
-			</table>
+			</table>-->
 		</div>
 		
 		<!--TableCreator-->
 		<div id="TableCreator" style="display:none;" class="MLCwindow">
+			<h1>Создание таблиц</h1>
 			<table class="window_table">
 				<tr>
 					<td>
@@ -83,6 +87,7 @@
 		
 		<!--Моды-->
 		<div id="MLCmods" style="display:none;" class="MLCwindow">
+			<h1>Моды</h1>
 			<table id="MLCmods_window_table" class="window_table">
 				<thead>
 					<tr>
@@ -97,6 +102,7 @@
 		
 		<!--Настройки системы-->
 		<div id="settings_ML" style="display:none;" class="MLCwindow">
+			<h1>Настройки системы</h1>
 			<table class="window_table">
 			
 				<tr>
@@ -158,21 +164,62 @@
 		</div>
 		<!--Батон-Аддон-->
 		<div id="MLbaton" style="display:none;" class="MLCwindow">
-			<table id="MLbaton_table">
+			<h1>Батон-Аддон</h1>
+			<table id="MLbaton_table" class="window_table">
 			<thead>
 				<tr>
 					<td>
-						<input type="text" id="menu_rot_link" placeholder="Старая ссылка на картинку">
+						<input type="text" id="menu_rot_link" placeholder="Старая ссылка на картинку" style="width:calc(100% - 10px);">
 					</td>
 					<td>
-						<input type="text" id="menu_rot_newLink" placeholder="Новая ссылка на картинку">
+						<input type="text" id="menu_rot_newLink" placeholder="Новая ссылка на картинку" style="width:calc(100% - 10px);">
 					</td>
-					<td>
+					<td width="30px">
 						<input type="button" id="menu_rot_add" value="+">
 					</td>
 				</tr>
 			</thead>
 			<tbody></tbody>
+			</table>
+		</div>
+		<!--Донат-->
+		<div id="MLCdonate" style="display:none;" class="MLCwindow">
+			<h1>Добровольные пожертвования</h1>
+			Если вы хотите поддержать разработчика, вы можете перевести ему кроли. Передача идёт <u>добровольно</u>, никого к этому не принуждаем.<br><i>Я хочу поддержать разработчика кролями в размере <input type="number" id="MLCdonate_value" placeholder="Целое число" min="1" value="1"> штук. </i><input type="button" id="MLCdonate_button" value="Подтвердить">
+		</div>
+		<!--Сообщения-->
+		<div id="MLmessage" style="display:none;" class="MLCwindow">
+			<!--не работает-->
+			<table id="MLmessage_table">
+				<thead>
+					<tr>
+						<td>
+							<select id="MLmessage_folder">
+								<!--0 - входящие, 1 - исходящие, 2 - непрочитанные-->
+								<option value="0" selected>Входящие</option>
+								<option value="1" selected>Исходящие</option>
+								<option value="2" selected>Непрочитанные</option>
+							</select>
+						</td>
+						<td>
+							<select id="MLmessage_page">
+								<option value="1" selected>1</option>
+							</select>
+						</td>
+						<td>(<span id="MLmessage_messageInFolder">~</span>)</td>
+					</tr>
+					<tr>
+						<td>Тема</td>
+						<td id="MLmessage_poluch">Кому</td>
+						<td>Время</td>
+					</tr>
+				</thead>
+				<tbody></tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3"><input type="button" id="MLmessage_off" value="Остановить"></td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>
