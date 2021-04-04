@@ -5,9 +5,9 @@ if(window.location.host != 'catwar.su'){
 	//и там начинается анархия
 	window.stop();
 }
-const versionML = '0.6.9 BETA'; 		//версия мода
+const versionML = '1.0'; 				//версия мода
 const MainMenu_version = versionML;		//надпись на главном экране
-const BRANCH = 'Test';					//ветка на GitHub | 'Test' - для тестов, 'master' - для релизов
+const BRANCH = 'master';				//ветка на GitHub | 'Test' - для тестов, 'master' - для релизов
 
 /*
 	СОЗДАНИЕ ТЕЛА КОНСОЛИ
@@ -236,7 +236,7 @@ catch(e){
 var MODS = [];
 MODS[0] = new mod('CatWarMod','Хвойница','https://porch.website/cwmod/CatWar_Mod.user.js',[]);
 MODS[1] = new mod('CW_shed','Ленивый','https://openuserjs.org/install/ReiReiRei/CW_Shed.user.js',[]);
-MODS[2] = new mod('CW_WhiteSpiderweb','Ленивый','https://openuserjs.org/install/ReReRe/CW_White_Spiderweb.user.js',['https://catwar.su/cw3/']);
+MODS[2] = new mod('CW_WhiteSpiderweb','strongfish95','https://openuserjs.org/install/ReReRe/CW_White_Spiderweb.user.js',['https://catwar.su/cw3/']);
 MODS[3] = new mod('More_Stickers_Addon', 'Серолапый', 'https://serolapy.github.io/mods/More_Stickers_Addon.js',[]);
 MODS[4] = new mod('Вароредизайн', 'Хвойница', 'https://porch.website/cwmod/CatWar_Redesign.user.js', []);
 
