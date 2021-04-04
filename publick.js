@@ -5,9 +5,11 @@ if(window.location.host != 'catwar.su'){
 	//и там начинается анархия
 	window.stop();
 }
+
 const versionML = '1.0'; 				//версия мода
 const MainMenu_version = versionML;		//надпись на главном экране
 const BRANCH = 'master';				//ветка на GitHub | 'Test' - для тестов, 'master' - для релизов
+
 
 /*
 	СОЗДАНИЕ ТЕЛА КОНСОЛИ
@@ -101,6 +103,7 @@ $('#MainMenu_version').html(MainMenu_version);
 /*написание функции*/
 $('#MLCsubmit_button').on('click',function(e){
 	e.preventDefault();
+
 	
 	//код
 	var code = $('#MLCsubmit_text').val();
@@ -115,6 +118,7 @@ $('#MLCsubmit_button').on('click',function(e){
 		//в случае ошибки
 		$('#MLCcommand_text').append($('<div></div>').html('<b>' + userError.name + '</b><br><i>' + userError.message + '</i>').addClass('MLcode_user_function').addClass('MLcode_user_function_error'));
 	}
+
 });
 
 
@@ -415,6 +419,7 @@ $("#tr_mouth, #tr_field").bind("DOMSubtreeModified", function() {
 });
 update();
 
+
 /*
 	ПОЖЕРТВОВАНИЯ
 */
@@ -519,3 +524,4 @@ $('#MLmessage').on('click', function(){
 
 //мяу
 });
+

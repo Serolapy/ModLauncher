@@ -8,6 +8,7 @@
 	САМА КОНСОЛЬ
 */
 .MLconsole{
+
 	background-color: #696969;
     font-family: Arial;
     color: #FFF;
@@ -24,6 +25,7 @@
 	
     transition: 0.5s;
     transform: translateX(102%);
+
 }
 	/*активная консоль*/
 	.MLconsole_active{
@@ -200,6 +202,7 @@
 		background: none;
 		border: 2px solid black;
 		color: #FFF;
+
 	}
 	
 /*строка состояния в окнах*/
@@ -314,6 +317,7 @@
 	color:#EB8D8D;
 }
 
+
 /*
 	ДОНАТ
 */
@@ -323,6 +327,7 @@
 }
 
 /*
+
 	====
 		ВЕРСИИ ОТОБРАЖЕНИЯ КОНСОЛИ
 	====
