@@ -238,7 +238,7 @@ catch(e){
 
 /*имя в Локал с, автор мода, ссылка на скрипт, разрешенные сайты*/
 var MODS = [];
-MODS[0] = new mod('CatWarMod','Хвойница','https://porch.website/cwmod/CatWar_Mod.user.js',[]);
+MODS[0] = new mod('CatWarMod','Хвойница','https://openuserjs.org/install/Fredo14/CatWar_Mod.user.js',[]);
 MODS[1] = new mod('CW_shed','Ленивый','https://openuserjs.org/install/ReiReiRei/CW_Shed.user.js',[]);
 MODS[2] = new mod('CW_WhiteSpiderweb','strongfish95','https://openuserjs.org/install/ReReRe/CW_White_Spiderweb.user.js',['https://catwar.su/cw3/']);
 MODS[3] = new mod('More_Stickers_Addon', 'Серолапый', 'https://serolapy.github.io/mods/More_Stickers_Addon.js',[]);
